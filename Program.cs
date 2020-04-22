@@ -19,15 +19,35 @@ namespace Flashcards
             return path;
 
         }
-        static IList<Card>[] makeList()
+        static void createCardGroup()
         {
-            //get card group paths and store it in a string array
-            string[] folders = Directory.GetDirectories(getUserDirectory());
+            Console.WriteLine("What would you like the new flashcard group to be called?");
+            string folderName = Console.ReadLine();
+            string path = @"C:\Users\User\source\repos\Flashcards\cards\" + folderName;
 
-            //number of card groups the user has
-            int numGroups = folders.Length;
+            try
+            {
+                // Determine whether the directory exists. 
+                if (Directory.Exists(path))
+                {
+                    Console.WriteLine("That path exists already.");
+                    return;
+                }
 
-            IList<Card>[] iListArray = new IList<Card>[numGroups];
+                // Try to create the directory.
+                DirectoryInfo di = Directory.CreateDirectory(path);
+                Console.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(path));
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The process failed: {0}", e.ToString());
+            }
+            finally { }
+        }
+        static void createCard()
+        {
+
         }
         static int Main(string[] args)
         {
@@ -54,6 +74,7 @@ namespace Flashcards
                 {
 
                     case "1":
+                        createCardGroup();
                         break;
                     case "2":
 
@@ -61,6 +82,7 @@ namespace Flashcards
                     case "3":
                         break;
                     case "4":
+                        createCard();
                         break;
                     case "5":
                         break;
