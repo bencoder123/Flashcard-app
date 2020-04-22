@@ -45,9 +45,45 @@ namespace Flashcards
             }
             finally { }
         }
+        static void deleteCardGroup()
+        {
+            Console.WriteLine("Which card group would you like to delete?");
+            string folderName = Console.ReadLine();
+            string path = @"C:\Users\User\source\repos\Flashcards\cards\" + folderName;
+
+            try
+            {
+                // Determine whether the directory exists. 
+                if (Directory.Exists(path))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("WARNING: All cards within the group will be lost.");
+                    Console.ResetColor();
+                    Console.Write("Are you sure you want to delete this card group? (y/n)");
+                    Directory.Delete(path, true);
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("The specified card group does not exist.");
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The process failed: {0}", e.ToString());
+            }
+            finally { }
+        }
+
+
         static void createCard()
         {
-
+            Console.WriteLine("Which card group would you like to modify?");
+            string path = Console.ReadLine();
+            //check if group exists
+            //create new text file in group
+            Card newCard = new Card();
         }
         static int Main(string[] args)
         {
@@ -80,6 +116,7 @@ namespace Flashcards
 
                         break;
                     case "3":
+                        deleteCardGroup();
                         break;
                     case "4":
                         createCard();
