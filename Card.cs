@@ -19,17 +19,6 @@ namespace Flashcards
 
         
         /// populates a side of a card with a string 
-        public void writeToSide(int side, string content)
-        {
-            if (side == 1)
-            {
-                this.sideOne = content;
-            }
-            else
-            {
-                this.sideTwo = content;
-            }
-
-        }
+      
     }
 }

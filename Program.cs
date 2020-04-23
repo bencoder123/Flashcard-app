@@ -80,10 +80,27 @@ namespace Flashcards
         static void createCard()
         {
             Console.WriteLine("Which card group would you like to modify?");
-            string path = Console.ReadLine();
-            //check if group exists
-            //create new text file in group
-            Card newCard = new Card();
+            string path = @"C:\Users\User\source\repos\Flashcards\cards\" + Console.ReadLine(); 
+            if (Directory.Exists(path))
+            {
+                string[] cardContent = { "", "" };
+
+                //ask user to populate two sides of the card
+                Console.Write("What would you like to write on side 1?");
+                cardContent[0] = Console.ReadLine();
+
+                Console.Write("What would you like to write on side 2?");
+                cardContent[1] = Console.ReadLine();
+
+                string textFileName = "1";
+                System.IO.File.WriteAllLines(@path + "/" + textFileName + ".txt", cardContent);
+            }
+            else
+            {
+                Console.WriteLine("The specified card group does not exist.");
+            }
+
+
         }
         static int Main(string[] args)
         {
@@ -132,6 +149,7 @@ namespace Flashcards
                         break;
 
                 }
+                Console.ReadKey();
 
             }
         }
