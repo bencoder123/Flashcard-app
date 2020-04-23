@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 
+
+/// Program Name: Flashcards App (temporary name)
+/// Program Description: A program that saves and reads 
+/// flashcards for the user. 
+
 namespace Flashcards
 {
     class Program
@@ -19,6 +24,7 @@ namespace Flashcards
             return path;
 
         }
+        /// Creates a new card group within /cards.
         static void createCardGroup()
         {
             Console.WriteLine("What would you like the new flashcard group to be called?");
@@ -45,6 +51,9 @@ namespace Flashcards
             }
             finally { }
         }
+        /// Deletes a specified directory within /cards.
+        /// This will also delete all text files (cards) within the 
+        /// card group.
         static void deleteCardGroup()
         {
             Console.WriteLine("Which card group would you like to delete?");
@@ -76,7 +85,9 @@ namespace Flashcards
             finally { }
         }
 
-
+        /// Create a new text file (a card) containing
+        /// two lines, which correspond to two sides of 
+        /// a card.
         static void createCard()
         {
             while(true) { 
@@ -105,36 +116,37 @@ namespace Flashcards
 
 
         }
+        /// Displays the directories("card groups") within /cards.
         static void displayCardGroups()
         {
-            Console.WriteLine("-----------------------------------------");
+            Console.WriteLine("---------------------------------------------");
             Console.WriteLine("Your card groups: ");
             string targetDirectory = @"C:\Users\User\source\repos\Flashcards\cards\";
+
             // Process the list of files found in the directory. 
             string[] fileEntries = Directory.GetDirectories(targetDirectory);
             foreach (string fileName in fileEntries)
                 ProcessFile(fileName);
 
-            Console.WriteLine("-----------------------------------------");
-            /*
-            // Recurse into subdirectories of this directory. 
-            string[] subdirectoryEntries = Directory.GetDirectories(targetDirectory);
-            foreach (string subdirectory in subdirectoryEntries)
-                ProcessDirectory(subdirectory);*/
-        }
 
+            Console.WriteLine("---------------------------------------------");
+        }
+        /// Method for formatting and printing 
+        /// the card group names.
         public static void ProcessFile(string path)
         {
             path = path.Replace(@"C:\Users\User\source\repos\Flashcards\cards\", "");
             Console.WriteLine(" - {0}", path);
         }
+        //main
         static int Main(string[] args)
         {
+            Console.WriteLine("Welcome to the Flashcards app.");
+            //loop to allow for continuous usage
             while (true)
             {
                 Console.Clear();
                 //main menu
-                Console.WriteLine("-----Flashcards App LINKED LIST SOLUTION-----\n");
                 Console.WriteLine("What would you like to do?");
                 Console.WriteLine("\n\t1: Create card group");
                 Console.WriteLine("\n\t2: Display card groups");
