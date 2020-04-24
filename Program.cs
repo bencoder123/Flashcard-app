@@ -17,9 +17,9 @@ namespace Flashcards
         static string getUserDirectory()
         {
             string path = Directory.GetCurrentDirectory();
-            if (path.Contains("bin\\Debug"))
+            if (path.Contains("bin\\Debug\\netcoreapp3.1"))
             {
-                path = path.Replace("bin\\Debug", "cards\\");
+                path = path.Replace("bin\\Debug\\netcoreapp3.1", "cards\\");
             }
             return path;
 
@@ -29,7 +29,7 @@ namespace Flashcards
         {
             Console.WriteLine("What would you like the new flashcard group to be called?");
             string folderName = Console.ReadLine();
-            string path = @"C:\Users\User\source\repos\Flashcards\cards\" + folderName;
+            string path = getUserDirectory() + folderName;
 
             try
             {
@@ -49,7 +49,15 @@ namespace Flashcards
             {
                 Console.WriteLine("The process failed: {0}", e.ToString());
             }
-            finally { }
+            finally {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("The card group ");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(folderName);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(" was created succesfully.");
+                Console.ResetColor();
+            }
         }
         /// Deletes a specified directory within /cards.
         /// This will also delete all text files (cards) within the 
@@ -57,8 +65,9 @@ namespace Flashcards
         static void deleteCardGroup()
         {
             Console.WriteLine("Which card group would you like to delete?");
+            displayCardGroups();
             string folderName = Console.ReadLine();
-            string path = @"C:\Users\User\source\repos\Flashcards\cards\" + folderName;
+            string path = getUserDirectory() + folderName;
 
             try
             {
@@ -69,8 +78,18 @@ namespace Flashcards
                     Console.Write("WARNING: All cards within the group will be lost.");
                     Console.ResetColor();
                     Console.Write("Are you sure you want to delete this card group? (y/n)");
-                    Directory.Delete(path, true);
-                    return;
+                    string choice = Console.ReadLine();
+                    if (choice.Equals("y") || choice.Equals("Y"))
+                    {
+                        Directory.Delete(path, true);
+                    }
+                    else
+                    {
+                        Console.WriteLine("No card groups were deleted.");
+                        return;
+                    }
+
+
                 }
                 else
                 {
@@ -82,7 +101,15 @@ namespace Flashcards
             {
                 Console.WriteLine("The process failed: {0}", e.ToString());
             }
-            finally { }
+            finally {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("The card group ");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(folderName);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(" was deleted succesfully. Press any key to continue.");
+                Console.ResetColor();
+            }
         }
 
         /// Create a new text file (a card) containing
@@ -92,7 +119,8 @@ namespace Flashcards
         {
             while(true) { 
                 Console.WriteLine("Which card group would you like to modify?");
-                string path = @"C:\Users\User\source\repos\Flashcards\cards\" + Console.ReadLine();
+                displayCardGroups();
+                string path = getUserDirectory() + Console.ReadLine();
                 if (Directory.Exists(path))
                 {
                     string[] cardContent = { "", "" };
@@ -121,7 +149,7 @@ namespace Flashcards
         {
             Console.WriteLine("---------------------------------------------");
             Console.WriteLine("Your card groups: ");
-            string targetDirectory = @"C:\Users\User\source\repos\Flashcards\cards\";
+            string targetDirectory = getUserDirectory();
 
             // Process the list of files found in the directory. 
             string[] fileEntries = Directory.GetDirectories(targetDirectory);
@@ -135,7 +163,7 @@ namespace Flashcards
         /// the card group names.
         public static void ProcessFile(string path)
         {
-            path = path.Replace(@"C:\Users\User\source\repos\Flashcards\cards\", "");
+            path = path.Replace(getUserDirectory(), "");
             Console.WriteLine(" - {0}", path);
         }
         //main
