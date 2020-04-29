@@ -54,6 +54,10 @@ namespace Flashcards
                     Console.WriteLine("The specified card group does not exist.");
                 }
             }
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("The card was created successcully. Press any key to continue.");
+            Console.ResetColor();
+            Console.ReadKey();
         }
         /// Allows the user to select a card group and
         /// read its cards.
