@@ -24,6 +24,18 @@ namespace Flashcards
             return path;
 
         }
+
+        static IList<Card> makeList()
+        {
+            string[] fileEntries = Directory.GetDirectories(getUserDirectory());
+
+            //get cards from each card group
+            for (int i = 0; i < fileEntries.Length; i++)
+            {
+                int cardCount = System.IO.Directory.GetFiles(getUserDirectory()).Length;
+            }
+            return null;
+        }
         /// Creates a new card group within /cards.
         static void createCard()
         {
