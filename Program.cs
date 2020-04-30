@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.IO;
-
 
 /// Program Name: Flashcards App (temporary name)
 /// Program Description: A program that saves and reads 
@@ -11,7 +13,10 @@ namespace Flashcards
 {
     class Program
     {
-        
+        //the IList array containing the user's card collection
+        IList<Card>[] cardsCollection = makeList();
+
+
         /// Get the directory of the program and return 
         /// a string containing the "\cards" directory.
         static string getUserDirectory()
@@ -25,16 +30,28 @@ namespace Flashcards
 
         }
 
-        static IList<Card> makeList()
+        static IList<Card>[] makeList()
         {
+            //get card group directories and store it in a string array
             string[] fileEntries = Directory.GetDirectories(getUserDirectory());
+
+            //number of card groups the user has
+            int numGroups = fileEntries.Length;
+
+            //Create an array of ILists. The size of the array depends on the number of 
+            //card groups the user has.
+            IList<Card>[] iListArray = new IList<Card>[numGroups];
+
+
 
             //get cards from each card group
             for (int i = 0; i < fileEntries.Length; i++)
             {
-                int cardCount = System.IO.Directory.GetFiles(getUserDirectory()).Length;
+                int cardCount = System.IO.Directory.GetFiles(fileEntries[i]).Length;
+                Console.WriteLine(fileEntries[i]);
+                Console.WriteLine(cardCount);
             }
-            return null;
+            return iListArray;
         }
         /// Creates a new card group within /cards.
         static void createCard()
@@ -210,6 +227,7 @@ namespace Flashcards
                 Console.WriteLine("\n\t7: Exit program\n");
                 Console.WriteLine("---------------------------------------------");
 
+                makeList();
                 //get user's command
                 string choice = Console.ReadLine();
 

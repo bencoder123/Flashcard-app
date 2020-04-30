@@ -12,6 +12,7 @@ namespace Flashcards
     class Card
     {
         string id = "";
+        bool viewed = false;
 
 
         /// populates a side of a card with a string 
