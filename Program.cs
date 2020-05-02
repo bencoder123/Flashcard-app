@@ -13,7 +13,7 @@ namespace Flashcards
 {
     class Program
     {
-        //the IList array containing the user's card collection
+        //Make the IList array containing the user's card collection
         IList<Card>[] cardsCollection = makeList();
 
 
@@ -48,11 +48,40 @@ namespace Flashcards
             for (int i = 0; i < fileEntries.Length; i++)
             {
                 int cardCount = System.IO.Directory.GetFiles(fileEntries[i]).Length;
-                Console.WriteLine(fileEntries[i]);
-                Console.WriteLine(cardCount);
+
+                for (int j = 0; j < cardCount; j++)
+                {
+                    iListArray[i].Add(new Card());
+                }
+
             }
             return iListArray;
         }
+
+        /// Reads a .txt file, populates
+        /// a Card object using its content 
+        /// and returns it.
+        static Card makeCard(string path)
+        {
+            Card newCard = new Card();
+            int counter = 1;
+            string line;
+
+            // Read the file and add each line to the Card.
+            System.IO.StreamReader file = new System.IO.StreamReader(path);
+            while ((line = file.ReadLine()) != null)
+            {
+                newCard.setSide(counter, line);
+                counter++;
+            }
+
+            file.Close();
+            return newCard;
+        }
+
+
+
+
         /// Creates a new card group within /cards.
         static void createCard()
         {
