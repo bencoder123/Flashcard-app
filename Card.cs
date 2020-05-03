@@ -19,7 +19,7 @@ namespace Flashcards
 
 
         //populates a side of a card with a string
-        public void setSide(int side, string content)
+        public void writeToSide(int side, string content)
         {
             if (side == 1)
             {
@@ -35,7 +35,7 @@ namespace Flashcards
         //set the 'viewed' variable to true 
         //so that it cannot be read twice in the same
         //session.
-        public void isViewed()
+        public void setToViewed()
         {
             this.viewed = true;
         }
