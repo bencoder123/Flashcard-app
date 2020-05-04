@@ -12,10 +12,18 @@ namespace Flashcards
 {
     class Card
     {
-        string id = "";
-        string sideOne = "";
-        string sideTwo = "";
-        bool viewed = false;
+        public string id, side1, side2;
+        public bool viewed = false;
+
+
+        public Card(string id, string side1, string side2)
+        {
+            this.id = id;
+            this.side1 = side1;
+            this.side2 = side2;
+            viewed = false;
+        }
+
 
 
         //populates a side of a card with a string
@@ -23,11 +31,11 @@ namespace Flashcards
         {
             if (side == 1)
             {
-                this.sideOne = content;
+                this.side1 = content;
             }
             else
             {
-                this.sideTwo = content;
+                this.side2 = content;
             }
 
         }
