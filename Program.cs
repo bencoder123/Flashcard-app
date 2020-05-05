@@ -134,7 +134,7 @@ namespace Flashcards
             string id;
             string side1;
             string side2;
-            int counter = 0;
+            int counter = 0;  //counter to see if the "end" of the hashtable has been reached
             int length;
             Random rand = new Random();
             int sumNum;
@@ -157,8 +157,12 @@ namespace Flashcards
                 }
             }
 
-            Hashtable ht = new Hashtable();
-            string[] fileEntries = Directory.GetFiles(cardDir);
+            Hashtable ht = new Hashtable(); //new hashtable
+            string[] fileEntries = Directory.GetFiles(cardDir); // the directories of cards into a string array
+
+            //loops through the string array fileEntries and places information into a Card Object
+            //Then inserts the Card object into the hashtable
+            //throws an exception if a Card is "corrupted"
             foreach (string fileName in fileEntries)
             {
                 try
@@ -181,13 +185,16 @@ namespace Flashcards
                 }
             }
             Console.Clear();
+            //randomly generates different hashes to access different cards within the hashtable
             for (int i = 0; i < length; i++)
             {
                 sumNum = rand.Next(length);
                 next = (Card)ht[sumNum];
+                //goes to the next hash if the card has already been viewed
                 while (next.viewed)
                 {
                     sumNum++;
+                    //returns to the "beginning" of the table if the it has reached the "end"
                     if (sumNum == length)
                     {
                         sumNum = 0;
